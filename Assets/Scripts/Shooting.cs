@@ -33,7 +33,7 @@ public class Shooting : MonoBehaviour
         GameObject bulletGameObject = Instantiate(bulletPrefab, gunTip.position, cameraPosition.rotation, bulletContainer.transform);
         bulletRb = bulletGameObject.GetComponent<Rigidbody>();
 
-        bulletRb.AddForce(gunTip.forward * shotForce, ForceMode.Impulse);
+        bulletRb.AddForce(gunTip.forward * shotForce + playerRb.velocity, ForceMode.Impulse);
         yield return new WaitForSeconds(gunCoolDown);
         shooting = false;
     }
