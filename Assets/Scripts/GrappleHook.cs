@@ -5,6 +5,11 @@ using UnityEngine;
 public class GrappleHook : MonoBehaviour
 {
     [Header("Grapple Settings")]
+    [SerializeField] float jointSpring;
+    [SerializeField] float jointDamper;
+    [SerializeField] float jointMassScale;
+
+    public int mouseButtonInt;
     public LayerMask whatCanGrappleOn;
     public Transform grapplePoint;
     public Transform cameraPosition;
@@ -18,15 +23,16 @@ public class GrappleHook : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.SetPosition(0, grapplePoint.position);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(mouseButtonInt))
         {
             StartGrappling();
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(mouseButtonInt))
         {
             StopGrappling();
         }
@@ -52,9 +58,12 @@ public class GrappleHook : MonoBehaviour
             joint.maxDistance = distanceFromPoint * 0.8f;
             joint.minDistance = distanceFromPoint * 0.25f;
 
-            joint.spring = 4.5f;
-            joint.damper = 7f;
-            joint.massScale = 4.5f;
+            joint.spring = jointSpring;
+            joint.damper = jointDamper;
+            joint.massScale = jointMassScale;
+            //joint.spring = 4;
+            //joint.damper = 7f;
+            //joint.massScale = 4.5f;
 
             lineRenderer.positionCount = 2;
         }

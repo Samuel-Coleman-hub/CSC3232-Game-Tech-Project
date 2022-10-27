@@ -12,11 +12,19 @@ public class PlayerCam : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
+    [Header("Camera Shake Settings")]
+    [SerializeField] float shakeIntensity = 0.7f;
+    [SerializeField] float shakeDuration;
+    private Vector3 cameraOriginalPos;
+
+
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        cameraOriginalPos = this.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -32,5 +40,12 @@ public class PlayerCam : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+
+        //ShakeCamera();
     }
+
+    //private void ShakeCamera()
+    //{
+    //    this.transform.localPosition = cameraOriginalPos + Random.insideUnitSphere * shakeIntensity;
+    //}
 }
