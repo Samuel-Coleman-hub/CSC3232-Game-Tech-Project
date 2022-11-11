@@ -56,7 +56,7 @@ public class SlidingMovement : MonoBehaviour
         }
     }
 
-    private void StartSliding()
+    public void StartSliding()
     {
         playerMovement.sliding = true;
 

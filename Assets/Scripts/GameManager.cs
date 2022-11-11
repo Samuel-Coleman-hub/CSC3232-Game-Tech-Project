@@ -7,6 +7,12 @@ public class GameManager : MonoBehaviour
     [Header("Time Slow Down Settings")]
     public GameObject slowDownUIObj;
 
+    private void Start()
+    {
+        
+        //Physics.gravity = Vector3.up;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))

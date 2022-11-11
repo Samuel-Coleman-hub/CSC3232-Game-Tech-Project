@@ -26,6 +26,8 @@ public class Drones : MonoBehaviour
 
     private void Update()
     {
+        //rb.velocity = transform.forward * 1000f *Time.deltaTime;
+
         playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
         if (playerInSight && !shooting)
@@ -38,11 +40,20 @@ public class Drones : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.tag == "Bullet")
+    //    {
+    //        rb.isKinematic = false;
+    //    }
+    //}
+
+    public void CollisionDetection(Collision collision)
     {
+        Debug.Log("hit hit box");
         if(collision.gameObject.tag == "Bullet")
         {
-            rb.isKinematic = false;
+            rb.isKinematic = false;    
         }
     }
 

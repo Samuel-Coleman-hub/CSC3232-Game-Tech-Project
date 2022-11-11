@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     private bool readyToJump = true;
 
+    public SlidingMovement slidingMovement;
+
     [Header("Crouching")]
     public float crouchSpeed;
     public float crouchYScale;
@@ -48,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
-    Rigidbody rb;
+    public Rigidbody rb;
 
     public MovementState movementState;
     public enum MovementState
@@ -60,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         sliding
     }
 
-    public bool sliding;
+    public bool sliding = false;
 
     private void Start()
     {
@@ -201,6 +203,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (OnSlope() && !exitSlope)
         {
+            sliding = true;
+            slidingMovement.StartSliding();
+            
             rb.AddForce(20f * movementSpeed * GetSlopeMoveDirection(moveDirection), ForceMode.Force);
 
             if(rb.velocity.y > 0)
@@ -258,7 +263,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
         {
-            sliding = true;
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
         }
@@ -269,4 +273,5 @@ public class PlayerMovement : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(dir, slopeHit.normal).normalized;
     }
+
 }

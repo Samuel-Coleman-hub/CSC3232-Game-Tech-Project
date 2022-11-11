@@ -45,6 +45,7 @@ public class GrappleHook : MonoBehaviour
 
     private void StartGrappling()
     {
+        Debug.Log("In start Grappling");
         RaycastHit hit;
         if (Physics.Raycast(cameraPosition.position, cameraPosition.forward, out hit, maxDistance, whatCanGrappleOn))
         {
