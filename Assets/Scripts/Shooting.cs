@@ -29,7 +29,6 @@ public class Shooting : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        Debug.Log("Shoot Bullet");
         shooting = true;
         GameObject bulletGameObject = Instantiate(bulletPrefab, gunTip.position, cameraPosition.rotation, bulletContainer.transform);
         bulletRb = bulletGameObject.GetComponent<Rigidbody>();

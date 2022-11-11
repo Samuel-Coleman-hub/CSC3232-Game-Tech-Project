@@ -21,8 +21,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Destroy Bullet" + collision.gameObject.transform.name);
-        Debug.Log(collision.gameObject.transform.tag);
         DestroyBullet();
     }
 

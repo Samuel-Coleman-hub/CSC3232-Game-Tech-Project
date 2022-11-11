@@ -20,6 +20,9 @@ public class GrappleHook : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector3 grappleDes;
 
+    private GameObject emptyObj;
+    private bool attachedToRigidbody;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -45,15 +48,27 @@ public class GrappleHook : MonoBehaviour
 
     private void StartGrappling()
     {
-        Debug.Log("In start Grappling");
         RaycastHit hit;
         if (Physics.Raycast(cameraPosition.position, cameraPosition.forward, out hit, maxDistance, whatCanGrappleOn))
         {
             grappleDes = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
-            joint.connectedAnchor = grappleDes;
 
+            if (hit.transform.gameObject.GetComponent<Rigidbody>())
+            {
+                attachedToRigidbody = true;
+                joint.connectedBody = hit.transform.gameObject.GetComponent<Rigidbody>();
+                emptyObj = new GameObject("grapplePoint");
+                emptyObj.transform.position = grappleDes;
+                emptyObj.transform.parent = hit.transform.gameObject.transform;
+            }
+            else
+            {
+                attachedToRigidbody=false;
+                joint.connectedAnchor = grappleDes;
+            }
+            
             float distanceFromPoint = Vector3.Distance(player.position, grappleDes);
 
             joint.maxDistance = distanceFromPoint * 0.8f;
@@ -62,9 +77,6 @@ public class GrappleHook : MonoBehaviour
             joint.spring = jointSpring;
             joint.damper = jointDamper;
             joint.massScale = jointMassScale;
-            //joint.spring = 4;
-            //joint.damper = 7f;
-            //joint.massScale = 4.5f;
 
             lineRenderer.positionCount = 2;
         }
@@ -73,6 +85,8 @@ public class GrappleHook : MonoBehaviour
     private void StopGrappling()
     {
         lineRenderer.positionCount = 0;
+        attachedToRigidbody = false;
+        emptyObj = null;
         Destroy(joint);
     }
 
@@ -84,7 +98,7 @@ public class GrappleHook : MonoBehaviour
         }
 
         lineRenderer.SetPosition(0, grapplePoint.position);
-        lineRenderer.SetPosition(1, grappleDes);
+        lineRenderer.SetPosition(1, attachedToRigidbody ? emptyObj.transform.position : grappleDes);
     }
 
 

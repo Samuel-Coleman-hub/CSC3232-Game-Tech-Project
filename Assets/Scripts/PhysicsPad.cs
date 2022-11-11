@@ -25,7 +25,15 @@ public class PhysicsPad : MonoBehaviour
 
     private void Start()
     {
-        initalPlayerSpeed = playerMovement.walkSpeed;
+        if(playerMovement != null)
+        {
+            initalPlayerSpeed = playerMovement.walkSpeed;
+        }
+        else
+        {
+            initalPlayerSpeed = 7;
+        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -11,6 +11,7 @@ public class Drones : MonoBehaviour
     public Transform gunTip;
     public float shotForce;
     public float gunCoolDown;
+    public Transform playerTransform;
 
     private Rigidbody rb;
     private Rigidbody bulletRb;
@@ -26,13 +27,17 @@ public class Drones : MonoBehaviour
 
     private void Update()
     {
-        //rb.velocity = transform.forward * 1000f *Time.deltaTime;
+        //rb.velocity = transform.forward * 500f *Time.deltaTime;
 
         playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
         if (playerInSight && !shooting)
         {
             StartCoroutine(StartShooting());
+        }
+        else if (playerInSight)
+        {
+            transform.LookAt(playerTransform);
         }
         else
         {
