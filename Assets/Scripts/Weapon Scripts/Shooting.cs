@@ -17,6 +17,7 @@ public class Shooting : MonoBehaviour
 
     private Rigidbody bulletRb;
     private bool shooting = false;
+    public ImpulseShake impulseShake;
 
 
     private void Update()
@@ -34,6 +35,7 @@ public class Shooting : MonoBehaviour
         bulletRb = bulletGameObject.GetComponent<Rigidbody>();
 
         bulletRb.AddForce(gunTip.forward * shotForce + playerRb.velocity, ForceMode.Impulse);
+        //impulseShake.Shake();
         yield return new WaitForSeconds(gunCoolDown);
         shooting = false;
     }

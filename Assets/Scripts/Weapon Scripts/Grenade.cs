@@ -21,11 +21,7 @@ public class Grenade : MonoBehaviour
         Debug.Log(colliders.Length);
         foreach(Collider hit in colliders)
         {
-            if (hit.gameObject.tag == "Player")
-            {
-                hit.GetComponent<Rigidbody>().AddExplosionForce(explosionForce * 20, explosionPosition, explosionRadius, explosionLift);
-            }
-            else if (hit.GetComponent<Rigidbody>())
+            if (hit.GetComponent<Rigidbody>())
             {
                 hit.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, explosionPosition, explosionRadius, explosionLift);
             }

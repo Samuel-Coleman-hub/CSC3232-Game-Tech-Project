@@ -17,10 +17,10 @@ TagManager:
   - Gun
   - Player
   - Bullet
-  - Enemy Bullet
+  - Enemy Attack
   - DroneFloor
-  - 
-  - 
+  - FlightDrone
+  - GroundDrone
   - 
   - 
   - 

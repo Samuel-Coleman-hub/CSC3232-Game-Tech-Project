@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class ChildHitBox : MonoBehaviour
 {
+    public enum DroneHitBoxType
+    {
+        Eye,
+        LeftPropellor,
+        RightPropellor
+    }
+
+    [SerializeField] DroneHitBoxType droneHitBoxType;
+
     [SerializeField] Transform hitBoxParentTransform;
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Child hit box hit");
-        hitBoxParentTransform.GetComponent<Drones>().CollisionDetection(collision);
+        hitBoxParentTransform.GetComponent<DroneStateManager>().OnCollisionChildEnter(droneHitBoxType, this.gameObject);
     }
 }

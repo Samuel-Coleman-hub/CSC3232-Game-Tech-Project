@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     private float movementSpeed;
-    public float walkSpeed;
     public float runSpeed;
     public float slideSpeed;
 
@@ -25,15 +24,9 @@ public class PlayerMovement : MonoBehaviour
 
     public SlidingMovement slidingMovement;
 
-    [Header("Crouching")]
-    public float crouchSpeed;
-    public float crouchYScale;
-    public float startYScale;
-
     [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
     public KeyCode runKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode jumpKey = KeyCode.Space;
     
     [Header("Ground Check")]
     public float playerHeight;
@@ -51,13 +44,13 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     public Rigidbody rb;
+    public float velocityForCameraShake;
+    private bool cameraShaking;
 
     public MovementState movementState;
     public enum MovementState
     {
-        walk,
         run,
-        crouch,
         air,
         sliding
     }
@@ -69,7 +62,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        startYScale = transform.localScale.y;
+        
+        //StartCoroutine(Camera.main.GetComponent<ShakeCamera>().CameraShake(0.1f, 1f));
     }
 
     private void Update()
@@ -88,18 +82,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
-
-        if (Input.GetKeyDown(crouchKey)) 
-        {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        }
-
-        if (Input.GetKeyUp(crouchKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        }
-
 
     }
 
@@ -136,20 +118,10 @@ public class PlayerMovement : MonoBehaviour
                 desiredMoveSpeed = runSpeed;
             }
         }
-        else if (Input.GetKey(crouchKey))
-        {
-            movementState = MovementState.crouch;
-            desiredMoveSpeed = crouchSpeed;
-        }
-        else if(onGround && Input.GetKey(runKey))
+        else if (onGround)
         {
             movementState = MovementState.run;
             desiredMoveSpeed = runSpeed;
-        }
-        else if (onGround)
-        {
-            movementState = MovementState.walk;
-            desiredMoveSpeed = walkSpeed;
         }
         else
         {

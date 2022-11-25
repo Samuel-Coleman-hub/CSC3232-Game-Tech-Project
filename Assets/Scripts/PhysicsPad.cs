@@ -27,7 +27,7 @@ public class PhysicsPad : MonoBehaviour
     {
         if(playerMovement != null)
         {
-            initalPlayerSpeed = playerMovement.walkSpeed;
+            initalPlayerSpeed = playerMovement.runSpeed;
         }
         else
         {
@@ -46,7 +46,7 @@ public class PhysicsPad : MonoBehaviour
                 rb.AddForce(collision.transform.up * bounceForce, ForceMode.Impulse);
                 break;
             case PadType.Speed :
-                playerMovement.walkSpeed *=  speedIncrease;
+                playerMovement.runSpeed *=  speedIncrease;
                 break;
             case PadType.Slow :
                 rb.mass = massIncrease;
@@ -63,7 +63,7 @@ public class PhysicsPad : MonoBehaviour
                 rb.mass = initalMass;
                 break;
             case PadType.Speed:
-                playerMovement.walkSpeed = initalPlayerSpeed;
+                playerMovement.runSpeed = initalPlayerSpeed;
                 break;
 
         }
