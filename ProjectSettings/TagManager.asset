@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Enemy
   - Bullet
+  - DroneRemote
+  - Drone
+  - PlayerBase
+  - EnemySpawn
+  - BulletContainer
   layers:
   - Default
   - TransparentFX
@@ -21,8 +26,8 @@ TagManager:
   - DroneFloor
   - FlightDrone
   - GroundDrone
-  - 
-  - 
+  - Enemy
+  - Turret
   - 
   - 
   - 

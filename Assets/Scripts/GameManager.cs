@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Debug.Log(Environment.UserName);
-        //Physics.gravity = Vector3.up;
+        Physics.gravity = new Vector3(0, -4.5F, 0);
     }
 
     private void Update()
