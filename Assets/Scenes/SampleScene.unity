@@ -9827,8 +9827,8 @@ GameObject:
   - component: {fileID: 1567463051}
   - component: {fileID: 1567463053}
   - component: {fileID: 1567463054}
-  - component: {fileID: 1567463055}
   - component: {fileID: 1567463056}
+  - component: {fileID: 1567463057}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -9877,7 +9877,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567463046}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f9baa9f3690c4649a6c45ce03bd4e65, type: 3}
   m_Name: 
@@ -9911,7 +9911,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567463046}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b45c37e3d9be6434aa2303b010833f8d, type: 3}
   m_Name: 
@@ -9983,45 +9983,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567463046}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11ce9c2c7cf0f2a45af1816c191d9b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1567463055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567463046}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107b665e6b268e44d9d4d640bfbca3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0
-  runSpeed: 10
-  slideSpeed: 30
-  desiredMoveSpeed: 5
-  speedIncreaseMultiplier: 5
-  slopeIncreaseMultiplier: 1.5
-  groundDrag: 4
-  jumpForce: 7
-  jumpCooldown: 0.25
-  airMultiplier: 0.2
-  orientation: {fileID: 1402611340}
-  slidingMovement: {fileID: 1567463050}
-  jumpKey: 32
-  playerHeight: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  maxSlopeAngle: 60
-  horizontalInput: 0
-  verticalInput: 0
-  rb: {fileID: 0}
-  velocityForCameraShake: 14
 --- !u!136 &1567463056
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10036,6 +10002,25 @@ CapsuleCollider:
   m_Height: 2.0592706
   m_Direction: 1
   m_Center: {x: -0.011253417, y: 0.008305907, z: 0}
+--- !u!114 &1567463057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567463046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18ae550ff92aa44d842219bf9702496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rb: {fileID: 0}
+  _playerHeight: 2
+  _jumpForce: 7
+  _whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  _jumpKey: 32
 --- !u!1 &1567758425
 GameObject:
   m_ObjectHideFlags: 0
