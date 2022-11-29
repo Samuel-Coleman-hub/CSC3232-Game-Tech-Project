@@ -16,6 +16,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void UpdateState()
     {
         base.UpdateState();
+        CheckSwitchState();
     }
     public override void ExitState()
     {
@@ -28,6 +29,10 @@ public class PlayerIdleState : PlayerBaseState
     public override void CheckSwitchState()
     {
         base.CheckSwitchState();
+        if (_ctx.IsMovementPressed)
+        {
+            SwitchStates(_factory.Walk());
+        }
     }
 
 }

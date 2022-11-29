@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemeyPrefab;
+    public int minSpawnNum;
+    public int maxSpawnNum;
+
     private Collider spawnerCollider;
     private Bounds spawnerBounds;
 
@@ -12,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     {
         spawnerCollider = GetComponent<Collider>();
         spawnerBounds = spawnerCollider.bounds;
-        StartCoroutine(SpawnEnemies(5, 1f));
+        StartCoroutine(SpawnEnemies(minSpawnNum, 0.1f));
     }
 
     IEnumerator SpawnEnemies(int number, float waitTime)

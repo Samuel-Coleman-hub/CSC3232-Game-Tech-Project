@@ -18,11 +18,19 @@ public class Shooting : MonoBehaviour
     private Rigidbody bulletRb;
     private bool shooting = false;
     public ImpulseShake impulseShake;
+    public bool machineGunMode;
 
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(mouseButtonInt) && !shooting)
+        if (machineGunMode)
+        {
+            if(Input.GetMouseButton(mouseButtonInt) && !shooting)
+            {
+                StartCoroutine(Shoot());
+            }
+        }
+        else if (Input.GetMouseButtonDown(mouseButtonInt) && !shooting)
         {
             StartCoroutine(Shoot());
         }
