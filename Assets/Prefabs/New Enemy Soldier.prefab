@@ -181,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damageFromBullet: 50
+  deathParticles: {fileID: 8407436561916369222, guid: 4b276433ba5d92a4abf5c264b1a6f26e, type: 3}
 --- !u!54 &-1104971956171937565
 Rigidbody:
   m_ObjectHideFlags: 0

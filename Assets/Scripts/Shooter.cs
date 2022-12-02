@@ -15,6 +15,13 @@ public class Shooter : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("I am AWAKEEE");
+        bulletContainer = GameObject.FindGameObjectWithTag("BulletContainer");
+        Debug.Log("THIS IS THE BULLET CONTAINER" + bulletContainer.name);
+    }
+
+    private void OnEnable()
+    {
         bulletContainer = GameObject.FindGameObjectWithTag("BulletContainer");
     }
 
@@ -28,7 +35,7 @@ public class Shooter : MonoBehaviour
         if (timer <= 0)
         {
             GameObject bulletGameObject = GameObject.Instantiate(bulletPrefab, shotTip.position,
-                transform.rotation, bulletContainer.transform);
+                this.gameObject.transform.rotation, bulletContainer.transform);
 
             Rigidbody bulletRb = bulletGameObject.GetComponent<Rigidbody>();
 

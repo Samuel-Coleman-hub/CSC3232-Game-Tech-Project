@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2027883361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027883362}
+  m_Layer: 0
+  m_Name: Units
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2027883362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027883361}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4809261725675773156}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4809261725675773162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4809261725675773156}
+  - component: {fileID: 4809261725675773157}
+  - component: {fileID: 2376048997999957183}
+  m_Layer: 0
+  m_Name: Flocking Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4809261725675773156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809261725675773162}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -110.859, y: 2.8482957, z: 79.59185}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2027883362}
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4809261725675773157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809261725675773162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1988099848, guid: 9cac09c8981b76146a11d164194f3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  units: []
+  manualStart: 0
+  unitPrefab: {fileID: 2933481266169023269, guid: 09eebe49c0920b0438ddcfb341b8b771, type: 3}
+  numUnits: 25
+  spawnRange: {x: 18.59, y: 0.24, z: 30.95}
+  goal: {fileID: 0}
+  seekGoal: 1
+  obedient: 1
+  maxForce: 24.4
+  maxvelocity: 10
+  alignmentStrength: 0
+  alignmentDistance: 0
+  cohesionStrength: 1
+  cohesionDistance: 25
+  separationStrength: 0.206
+  separationDistance: 5.1
+  randomizerStrength: 0.01
+  viewingAngle: 360
+--- !u!114 &2376048997999957183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809261725675773162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edcedf996d3b1842ba0ea087a53f02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flockingUnitManager: {fileID: 4809261725675773157}
+  flockingUnitPrefab: {fileID: 2933481266169023269, guid: 09eebe49c0920b0438ddcfb341b8b771, type: 3}
+  spawnLocation: {fileID: 0}
