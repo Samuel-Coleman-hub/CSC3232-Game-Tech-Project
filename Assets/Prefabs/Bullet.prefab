@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletExistenceTime: 5
   bulletParticles: {fileID: 6149080321117898662, guid: c5a0c8a3c8359de49ae17bf1b9c653af, type: 3}
+  bulletDamage: 25
   explosive: 0
   explosionRadius: 0
   explosionForce: 0

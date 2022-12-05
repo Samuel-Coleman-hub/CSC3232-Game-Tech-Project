@@ -11,15 +11,19 @@ public class FlockingManger : MonoBehaviour
 
     private void Awake()
     {
-        
-        //flockingUnitManager.spawnRange = spawnLocation.position;
-        //flockingUnitManager.AddFlockingUnit(flockingUnitPrefab);
+        flockingUnitManager.goal = GameObject.FindGameObjectWithTag("PlayerBase");
         
     }
 
     private void Start()
     {
         flockingUnitManager.units.ForEach(unit => unit.GetComponent<Transform>().position = this.transform.position);
+    }
+
+    public void SpawnEnemies(int enemiesNum)
+    {
+        flockingUnitManager.numUnits = enemiesNum;
+        flockingUnitManager.manualStart = true;
     }
 
 }

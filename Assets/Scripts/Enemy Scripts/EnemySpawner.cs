@@ -15,7 +15,11 @@ public class EnemySpawner : MonoBehaviour
     {
         spawnerCollider = GetComponent<Collider>();
         spawnerBounds = spawnerCollider.bounds;
-        StartCoroutine(SpawnEnemies(minSpawnNum, 0.1f));
+    }
+
+    public void SpawnEnemies(int enemiesNum)
+    {
+        StartCoroutine(SpawnEnemies(enemiesNum, 0.1f));
     }
 
     IEnumerator SpawnEnemies(int number, float waitTime)

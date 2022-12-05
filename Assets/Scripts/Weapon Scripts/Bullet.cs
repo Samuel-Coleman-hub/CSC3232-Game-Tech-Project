@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [Header("Bullet Settings")]
     public float bulletExistenceTime;
     public ParticleSystem bulletParticles;
+    public float bulletDamage;
 
     [Header("Explosion Settings")]
     public bool explosive;

@@ -8,7 +8,6 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float maxHealth;
     private float health;
 
-    [SerializeField] private float damageFromBullet;
     [SerializeField] private ParticleSystem deathParticles;
 
     private void Start()
@@ -21,7 +20,8 @@ public class EnemyHealth : MonoBehaviour
         switch (tag)
         {
             case "Bullet":
-                health -= damageFromBullet;
+                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                health -= bullet.bulletDamage;
                 break;
         }
 

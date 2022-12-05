@@ -17,7 +17,7 @@ public class AttackPlayerAction : BaseAction
     {
         base.OnActivate(_linkedGoal);
         attackPlayerGoal = (AttackPlayerGoal)linkedGoal;
-        agent.MoveAgent(attackPlayerGoal.playerTransform);
+        agent.MoveAgent(agent.playerTransform);
         shooting.ShootingActive();
     }
 
@@ -28,7 +28,7 @@ public class AttackPlayerAction : BaseAction
 
     public override void UpdateAction()
     {
-        agent.MoveAgent(attackPlayerGoal.playerTransform);
-        transform.LookAt(attackPlayerGoal.playerTransform);
+        agent.MoveAgent(agent.playerTransform);
+        transform.LookAt(agent.playerTransform);
     }
 }

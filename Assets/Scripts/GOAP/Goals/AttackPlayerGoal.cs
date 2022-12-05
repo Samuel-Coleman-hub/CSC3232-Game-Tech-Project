@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AttackPlayerGoal : BaseGoal
 {
-    [SerializeField] public Transform playerTransform;
-
     [SerializeField] int minPriority = 0;
     [SerializeField] int maxPriority = 30;
 

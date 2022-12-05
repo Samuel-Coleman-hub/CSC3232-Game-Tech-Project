@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1863592036494243895}
   m_Layer: 10
   m_Name: Eye Enemy Bullet
-  m_TagString: Enemy
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletExistenceTime: 5
   bulletParticles: {fileID: 6149080321117898662, guid: e3f46d822765bc745bdf68060ceff0aa, type: 3}
+  bulletDamage: 25
   explosive: 0
   explosionRadius: 0
   explosionForce: 0

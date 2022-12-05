@@ -79,7 +79,7 @@ Transform:
   m_Children:
   - {fileID: 1219057525}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9136488031286347471
 MeshFilter:
@@ -180,8 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damageFromBullet: 50
-  deathParticles: {fileID: 8407436561916369222, guid: 4b276433ba5d92a4abf5c264b1a6f26e, type: 3}
+  deathParticles: {fileID: 8407436561916369222, guid: 3debfff862a2b6b4aa006faa1f1f2309, type: 3}
 --- !u!54 &-1104971956171937565
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -211,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentStoppingDistance: 5
+  playerTransform: {fileID: 0}
   shipLocation: {fileID: 0}
   enemyBaseLocation: {fileID: 0}
   agentRunSpeed: 5
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minPriority: 0
-  maxPriority: 30
-  priorityMultiplier: 1
+  maxPriority: 100
+  priorityMultiplier: 2
   priorityDiminisher: 0.1
 --- !u!114 &1926602236
 MonoBehaviour:
@@ -257,7 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52c755692162474aa3cce429504b84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   minPriority: 0
   maxPriority: 60
   priorityMultiplier: 1

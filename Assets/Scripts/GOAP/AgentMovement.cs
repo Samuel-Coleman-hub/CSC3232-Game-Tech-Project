@@ -7,6 +7,7 @@ public class AgentMovement : MonoBehaviour
 {
     public float agentStoppingDistance;
     public bool moving => agent.velocity.magnitude > float.Epsilon;
+    public Transform playerTransform;
     public Transform shipLocation;
     public Transform enemyBaseLocation;
 
@@ -21,6 +22,8 @@ public class AgentMovement : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        shipLocation = GameObject.FindGameObjectWithTag("PlayerBase").GetComponent<BoxCollider>().transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         agent.stoppingDistance = agentStoppingDistance;
     }
 
