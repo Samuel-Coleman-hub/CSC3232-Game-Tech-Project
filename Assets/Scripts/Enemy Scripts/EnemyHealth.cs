@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    
     [SerializeField] private float maxHealth;
     private float health;
 
     [SerializeField] private ParticleSystem deathParticles;
+
+    public EnemySpawner spawner;
 
     private void Start()
     {
@@ -29,6 +30,10 @@ public class EnemyHealth : MonoBehaviour
         {
             ParticleSystem particles = Instantiate(deathParticles, transform.position, transform.rotation);
             particles.Play();
+            if(spawner != null)
+            {
+                spawner.EnemyDied();
+            }
             Destroy(gameObject);
         }
     }

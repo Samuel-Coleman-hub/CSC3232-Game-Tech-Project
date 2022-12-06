@@ -22,8 +22,20 @@ public class FlockingManger : MonoBehaviour
 
     public void SpawnEnemies(int enemiesNum)
     {
-        flockingUnitManager.numUnits = enemiesNum;
-        flockingUnitManager.manualStart = true;
+        for(int i = 0; i < enemiesNum; i++)
+        {
+            GameObject flockingObj = Instantiate(flockingUnitPrefab);
+            flockingUnitManager.AddFlockingUnit(flockingObj);
+        }
+    }
+
+    public bool IsAlive()
+    {
+        if(flockingUnitManager.units.Count == 0)
+        {
+            return true;
+        }
+        return false;
     }
 
 }

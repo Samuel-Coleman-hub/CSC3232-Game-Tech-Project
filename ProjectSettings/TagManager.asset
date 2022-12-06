@@ -12,6 +12,7 @@ TagManager:
   - EnemySpawn
   - BulletContainer
   - FlockingManager
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - GroundDrone
   - Enemy
   - Turret
-  - 
+  - Vending Machine
   - 
   - 
   - 

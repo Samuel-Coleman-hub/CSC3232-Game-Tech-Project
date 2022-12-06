@@ -11,15 +11,18 @@ public class GameManager : MonoBehaviour
     {
         Wave,
         Prepare,
-        GameOver
+        GameOver,
+        Waiting
 
     }
 
     [Header("UI GameObjects")]
     [SerializeField] Slider healthSliderUI;
     [SerializeField] GameObject gameOverUI;
+    [SerializeField] TextMeshProUGUI gameOverWaveCountTextUI;
     [SerializeField] TextMeshProUGUI timerUI;
-    [SerializeField] TextMeshProUGUI waveText;
+    [SerializeField] TextMeshProUGUI timerTitleUI;
+    [SerializeField] TextMeshProUGUI waveTextUI;
     [SerializeField] Animator waveTextAnimator;
 
     [Header("Time Slow Down Settings")]
@@ -53,15 +56,19 @@ public class GameManager : MonoBehaviour
         switch (currentState)
         {
             case GameStates.Wave:
+                if(flockSpawner.IsAlive() && spawner.enemiesAlive == 0)
+                {
+                    EndWave();
+                }
                 break;
             case GameStates.Prepare:
                 UpdatePrepare();
                 break;
             case GameStates.GameOver:
                 break;
+            case GameStates.Waiting:
+                break;
         }
-
-        SwitchState();
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -75,11 +82,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SwitchState()
-    {
-
-    }
-
     public void UpdateHealth(float health)
     {
         healthSliderUI.value = health;
@@ -89,19 +91,35 @@ public class GameManager : MonoBehaviour
     {
         currentState = GameStates.Wave;
         waveNum++;
-        waveText.text = "Wave " + waveNum;
-        waveTextAnimator.SetTrigger("Fade");
-        timerUI.enabled = false;
+        FadeText("Wave " + waveNum);
 
-        flockSpawner.SpawnEnemies(5);
-        spawner.SpawnEnemies(5);
+        timerUI.enabled = false;
+        timerTitleUI.enabled = false;
+        flockSpawner.SpawnEnemies(3);
+        spawner.SpawnEnemies(2);
+    }
+
+    private void EndWave()
+    {
+        currentState = GameStates.Waiting;
+        FadeText("Wave Completed");
+        StartCoroutine(WaitToChangeState());
+        
+    }
+
+    IEnumerator WaitToChangeState()
+    {
+        yield return new WaitForSeconds(8f);
+        currentState = GameStates.Prepare;
+        PrepareForNextWave();
     }
 
     private void PrepareForNextWave()
     {
+        timerUI.enabled = true;
+        timerTitleUI.enabled = true;
         currentState = GameStates.Prepare;
-        waveText.text = "Prepare for Incoming Wave";
-        waveTextAnimator.SetTrigger("Fade");
+        FadeText("Prepare for Incoming Wave");
         timer = waitTime;
     }
 
@@ -120,10 +138,19 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        currentState = GameStates.GameOver;
+
         gameOverUI.SetActive(true);
+        gameOverWaveCountTextUI.text = "You Survived for " + (waveNum - 1) + " Waves";
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         playerCam.enabled = false;
         //playerObj.GetComponent<>();
+    }
+
+    private void FadeText(string text)
+    {
+        waveTextUI.text = text;
+        waveTextAnimator.SetTrigger("Fade");
     }
 }

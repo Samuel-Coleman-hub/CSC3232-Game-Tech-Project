@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemeyPrefab;
-    public int minSpawnNum;
-    public int maxSpawnNum;
+
+    public int enemiesAlive;
 
     private Collider spawnerCollider;
     private Bounds spawnerBounds;
@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemies(int enemiesNum)
     {
+        enemiesAlive = enemiesNum;
         StartCoroutine(SpawnEnemies(enemiesNum, 0.1f));
     }
 
@@ -26,7 +27,8 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            Instantiate(enemeyPrefab, GetRandomPosition(), Quaternion.identity);
+            GameObject enemy = Instantiate(enemeyPrefab, GetRandomPosition(), Quaternion.identity);
+            enemy.GetComponent<EnemyHealth>().spawner = this;
             yield return new WaitForSeconds(waitTime);
         }
     }
@@ -39,5 +41,10 @@ public class EnemySpawner : MonoBehaviour
             Random.Range(spawnerBounds.min.y, spawnerBounds.max.y),
             Random.Range(spawnerBounds.min.z, spawnerBounds.max.z));
         return randomPos;
+    }
+
+    public void EnemyDied()
+    {
+         enemiesAlive--;
     }
 }
