@@ -12281,11 +12281,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numbersOfItemsUI:
   - {fileID: 600644983}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 222468123}
+  - {fileID: 1082250311}
+  - {fileID: 673028688}
+  - {fileID: 2143960435}
+  - {fileID: 1054767624}
+  imagesUI:
+  - {fileID: 1632977596}
+  - {fileID: 1817678475}
+  - {fileID: 1551328993}
+  - {fileID: 1621899270}
+  - {fileID: 1230543613}
+  - {fileID: 2116667177}
 --- !u!1 &1567758425
 GameObject:
   m_ObjectHideFlags: 0
@@ -12808,7 +12815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.15686275}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
