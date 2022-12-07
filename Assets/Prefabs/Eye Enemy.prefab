@@ -193,6 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cda58b60986d3142b7b048816480807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minMoneyForKill: 10
+  maxMoneyForKill: 50
   maxHealth: 25
   deathParticles: {fileID: 8407436561916369222, guid: 4b276433ba5d92a4abf5c264b1a6f26e, type: 3}
   spawner: {fileID: 0}
+  gameManager: {fileID: 0}

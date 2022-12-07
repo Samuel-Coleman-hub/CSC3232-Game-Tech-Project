@@ -130,3 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94324eec2889d7e4b8f1cb7b202c45fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnObjectPrefab: {fileID: 5732851396134395828, guid: d91821879f06a714c9e17e1955674a18, type: 3}
+  type: 0
+  objectHeight: -0.5
+  inPlayerHand: 0

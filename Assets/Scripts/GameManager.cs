@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,11 +34,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerCam playerCam;
     [SerializeField] EnemySpawner spawner;
     [SerializeField] FlockingManger flockSpawner;
+    [SerializeField] Inventory inventory;
 
     private GameStates currentState;
     public float waitTime;
     public float timer;
-
     private int waveNum;
 
     private void Start()
@@ -152,5 +153,21 @@ public class GameManager : MonoBehaviour
     {
         waveTextUI.text = text;
         waveTextAnimator.SetTrigger("Fade");
+    }
+
+    public void AddDeathMoney(int minMoney, int maxMoney)
+    {
+        int money = Random.Range(minMoney, maxMoney);
+        inventory.UpdateMoney(money, true);
+    }
+
+    public void SubtractMoney(int money)
+    {
+        inventory.UpdateMoney(money, false);
+    }
+
+    public int GetTotalMoney()
+    {
+        return inventory.GetMoney();
     }
 }

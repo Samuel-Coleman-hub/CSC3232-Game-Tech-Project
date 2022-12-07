@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ItemPickUp : MonoBehaviour
 {
+    [SerializeField] GameObject spawnObjectPrefab;
     [SerializeField] Inventory.ItemType type;
+    [SerializeField] float objectHeight;
+    public bool inPlayerHand = false;
     private Inventory inventory;
 
     private void Awake()
@@ -14,9 +17,19 @@ public class ItemPickUp : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") && !inPlayerHand)
         {
-            inventory.AddItem(type);
+            inventory.UpdateItemCount(type, true);
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Ground") && inPlayerHand)
+        {
+            GameObject item = Instantiate(spawnObjectPrefab, transform);
+            item.transform.SetParent(null);
+            item.transform.position = new Vector3(transform.position.x, objectHeight, transform.position.z);
+            item.transform.rotation = Quaternion.identity;
+            item.transform.localScale = new Vector3( 1, 1, 1);
             Destroy(gameObject);
         }
         

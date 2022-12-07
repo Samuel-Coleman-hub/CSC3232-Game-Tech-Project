@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    [SerializeField] private int minMoneyForKill;
+    [SerializeField] private int maxMoneyForKill;
     [SerializeField] private float maxHealth;
     private float health;
 
     [SerializeField] private ParticleSystem deathParticles;
 
     public EnemySpawner spawner;
+    public GameManager gameManager;
 
     private void Start()
     {
         health = maxHealth;
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -34,6 +38,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 spawner.EnemyDied();
             }
+            gameManager.AddDeathMoney(minMoneyForKill, maxMoneyForKill);
             Destroy(gameObject);
         }
     }
