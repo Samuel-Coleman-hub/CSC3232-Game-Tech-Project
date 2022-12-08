@@ -25,7 +25,7 @@ public class MachineSlot : MonoBehaviour
         buyText.text = "E - To Buy";
     }
 
-    public void BuyItem()
+    public void InteractWith()
     {
         Debug.Log("BOUGHT");
         if(gameManager.GetTotalMoney() >= itemPrice)

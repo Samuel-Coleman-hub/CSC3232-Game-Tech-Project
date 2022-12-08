@@ -13,6 +13,13 @@ TagManager:
   - BulletContainer
   - FlockingManager
   - EnemyBullet
+  - GameManager
+  - Ground
+  - EnemyBase
+  - HealPoint
+  - HidingSpot
+  - EnemySpawner
+  - Boid
   layers:
   - Default
   - TransparentFX
@@ -31,8 +38,8 @@ TagManager:
   - Enemy
   - Turret
   - Vending Machine
-  - 
-  - 
+  - FourInARow
+  - Puck
   - 
   - 
   - 

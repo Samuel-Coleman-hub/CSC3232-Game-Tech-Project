@@ -25,7 +25,7 @@ public class PlayerSelector : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                hit.transform.gameObject.SendMessage("BuyItem");
+                hit.transform.gameObject.SendMessage("InteractWith");
             }
         }
         else if(previousHit.transform != null)
