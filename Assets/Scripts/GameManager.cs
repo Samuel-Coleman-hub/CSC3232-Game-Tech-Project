@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         timerUI.enabled = false;
         timerTitleUI.enabled = false;
         flockSpawner.SpawnEnemies(3);
-        spawner.SpawnEnemies(2);
+        spawner.SpawnEnemies(4);
     }
 
     private void EndWave()

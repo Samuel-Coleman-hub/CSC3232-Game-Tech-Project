@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int minMoneyForKill;
     [SerializeField] private int maxMoneyForKill;
     [SerializeField] private float maxHealth;
-    private float health;
+    [SerializeField] private float health;
 
     [SerializeField] private ParticleSystem deathParticles;
 
@@ -41,5 +41,15 @@ public class EnemyHealth : MonoBehaviour
             gameManager.AddDeathMoney(minMoneyForKill, maxMoneyForKill);
             Destroy(gameObject);
         }
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public void ResetHealth()
+    {
+        health = maxHealth;
     }
 }

@@ -11,6 +11,8 @@ public class EnemySpawner : MonoBehaviour
     private Collider spawnerCollider;
     private Bounds spawnerBounds;
 
+    public int enemiesInWave;
+
     private void Start()
     {
         spawnerCollider = GetComponent<Collider>();
@@ -19,6 +21,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemies(int enemiesNum)
     {
+        enemiesInWave = enemiesNum;
         enemiesAlive = enemiesNum;
         StartCoroutine(SpawnEnemies(enemiesNum, 0.1f));
     }
@@ -41,6 +44,13 @@ public class EnemySpawner : MonoBehaviour
             Random.Range(spawnerBounds.min.y, spawnerBounds.max.y),
             Random.Range(spawnerBounds.min.z, spawnerBounds.max.z));
         return randomPos;
+    }
+
+    public void EnemyCallingForBackup(int amount)
+    {
+        enemiesAlive += amount;
+        StartCoroutine(SpawnEnemies(amount, 0.1f));
+
     }
 
     public void EnemyDied()
