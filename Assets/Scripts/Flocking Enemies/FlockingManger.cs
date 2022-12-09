@@ -11,7 +11,7 @@ public class FlockingManger : MonoBehaviour
 
     private void Awake()
     {
-        flockingUnitManager.goal = GameObject.FindGameObjectWithTag("PlayerBase");
+        flockingUnitManager.goal = GameObject.FindGameObjectWithTag("FlockingGoal");
         
     }
 

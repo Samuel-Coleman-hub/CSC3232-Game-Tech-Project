@@ -8,16 +8,22 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int maxMoneyForKill;
     [SerializeField] private float maxHealth;
     [SerializeField] private float health;
+    [SerializeField] private bool visuallyDamagable;
+    [SerializeField] private Material normalMaterial;
+    [SerializeField] private Material damagedMaterial;
 
     [SerializeField] private ParticleSystem deathParticles;
 
     public EnemySpawner spawner;
     public GameManager gameManager;
 
+    private MeshRenderer mesh;
+
     private void Start()
     {
         health = maxHealth;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        mesh =  GetComponent<MeshRenderer>();
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -41,6 +47,11 @@ public class EnemyHealth : MonoBehaviour
             gameManager.AddDeathMoney(minMoneyForKill, maxMoneyForKill);
             Destroy(gameObject);
         }
+
+        if(health <= 50 && visuallyDamagable)
+        {
+            mesh.material = damagedMaterial;
+        }
     }
 
     public float GetHealth()
@@ -51,5 +62,9 @@ public class EnemyHealth : MonoBehaviour
     public void ResetHealth()
     {
         health = maxHealth;
+        if (visuallyDamagable)
+        {
+            mesh.material = normalMaterial;
+        }
     }
 }

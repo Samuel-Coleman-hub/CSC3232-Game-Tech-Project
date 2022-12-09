@@ -23,8 +23,11 @@ public class GrappleHook : MonoBehaviour
     private GameObject emptyObj;
     private bool attachedToRigidbody;
 
+
     private void Awake()
     {
+        cameraPosition = Camera.main.transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform; 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, grapplePoint.position);
     }

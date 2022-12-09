@@ -25,7 +25,7 @@ public class AgentMovement : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        shipLocation = GameObject.FindGameObjectWithTag("PlayerBase").GetComponent<BoxCollider>().transform;
+        shipLocation = GameObject.FindGameObjectWithTag("PlayerBase").transform;
         enemyBaseLocation = GameObject.FindGameObjectWithTag("EnemySpawner").transform;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         agent.stoppingDistance = agentStoppingDistance;
@@ -42,6 +42,7 @@ public class AgentMovement : MonoBehaviour
             {
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
+                    Debug.Log("Position Reached");
                     destinationReached = true;
                     agent.isStopped = true;
                 }

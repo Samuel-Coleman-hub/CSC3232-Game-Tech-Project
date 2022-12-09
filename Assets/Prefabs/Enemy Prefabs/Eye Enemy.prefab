@@ -181,6 +181,7 @@ MonoBehaviour:
   shotTip: {fileID: 7356788014725814451}
   shotForce: 20
   shotCooldown: 3
+  stoppingDistance: 3
 --- !u!114 &-2937863907779010096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cda58b60986d3142b7b048816480807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMoneyForKill: 10
-  maxMoneyForKill: 50
+  minMoneyForKill: 5
+  maxMoneyForKill: 20
   maxHealth: 25
   health: 0
   deathParticles: {fileID: 8407436561916369222, guid: 4b276433ba5d92a4abf5c264b1a6f26e, type: 3}

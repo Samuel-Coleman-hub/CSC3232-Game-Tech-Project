@@ -44,7 +44,8 @@ public class Inventory : MonoBehaviour
     private float imageTransparency = 0.2f;
     private int menuLocation;
 
-    private int money = 100;
+    [Header("Player Start Money")]
+    [SerializeField] private int money = 50;
 
     private void Start()
     {
@@ -64,39 +65,47 @@ public class Inventory : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             menuLocation++;
-            menuLocation = (menuLocation > 5 ? 0 : menuLocation);
+            menuLocation = (menuLocation > entries.Count ? 0 : menuLocation);
             SwitchImageColour(1);
             UpdateHand();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             menuLocation--;
-            menuLocation = (menuLocation < 0 ? 5 : menuLocation);
+            menuLocation = (menuLocation < 0 ? entries.Count : menuLocation);
             SwitchImageColour(0);
             UpdateHand();
         }
 
-        if (Input.GetMouseButtonDown(1) && currentChild != null)
+        if (Input.GetMouseButtonDown(1) && currentChild != null && currentChild.GetComponent<ItemPickUp>())
         {
             playerHand.DetachChildren();
             UpdateItemCount(entries[menuLocation].ItemType, false);
             currentChild.GetComponent<Rigidbody>().isKinematic = false;
-            currentChild.GetComponent<Rigidbody>().AddForce(currentChild.transform.forward * 50f, ForceMode.Impulse);
             currentChild.GetComponent<Collider>().enabled = true;
+            currentChild.GetComponent<Rigidbody>().AddForce(currentChild.transform.forward * 50f, ForceMode.Impulse);
             currentChild = null;
+            UpdateHand();
         }
     }
 
     private void UpdateHand()
     {
-        Debug.Log("SPAWN IN THE HAND");
         if(entries[menuLocation].NumberOfItem != 0)
         {
             GameObject child = Instantiate(entries[menuLocation].ObjectPrefab, playerHand.transform);
             child.transform.parent = playerHand.transform;
-            child.GetComponent<ItemPickUp>().inPlayerHand = true;
-            child.GetComponent<Rigidbody>().isKinematic = true;
-            child.GetComponent<Collider>().enabled = false;
+            
+            if(child.GetComponent<ItemPickUp>() != null)
+            {
+                child.GetComponent<Rigidbody>().isKinematic = true;
+                child.GetComponent<Collider>().enabled = false;
+                child.GetComponent<ItemPickUp>().inPlayerHand = true;
+            }
+            else if (entries[menuLocation].ItemType == ItemType.Grapple)
+            {
+                child.GetComponent<LineRenderer>().enabled = !child.GetComponent<LineRenderer>().enabled;
+            }
             currentChild = child;
         }
         else if(currentChild != null)
@@ -124,9 +133,9 @@ public class Inventory : MonoBehaviour
 
         if (imageReplacmentCount < 0)
         {
-            imageReplacmentCount = 5;
+            imageReplacmentCount = entries.Count;
         }
-        else if (imageReplacmentCount > 5)
+        else if (imageReplacmentCount > entries.Count)
         {
             imageReplacmentCount = 0;
         }
@@ -139,11 +148,9 @@ public class Inventory : MonoBehaviour
     public enum ItemType
     {
         Turret,
-        Other1,
-        Other2,
-        Other3,
-        Other4,
-        Other5,
+        Quick,
+        Powerful,
+        Grapple
     }
 
     public void UpdateItemCount(ItemType type, bool isAddition)

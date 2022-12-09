@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    enum GameStates
+    public enum GameStates
     {
         Wave,
         Prepare,
@@ -16,6 +16,16 @@ public class GameManager : MonoBehaviour
         Waiting
 
     }
+
+    [Header("Game Difficulty Settings")]
+    [SerializeField] int flockingEnemyNumStart;
+    [SerializeField] int goapEnemyNumStart;
+    [SerializeField] float flockingEnemyMultiplier;
+    [SerializeField] float goapEnemyMultiplier;
+    [SerializeField] float waitTime;
+
+    private int flockingEnemyNum;
+    private int goapEnemyNum;
 
     [Header("UI GameObjects")]
     [SerializeField] Slider healthSliderUI;
@@ -35,10 +45,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] EnemySpawner spawner;
     [SerializeField] FlockingManger flockSpawner;
     [SerializeField] Inventory inventory;
+    [SerializeField] PlayerSelector playerSelector;
+    [SerializeField] PlayerBase playerBase;
 
-    private GameStates currentState;
-    public float waitTime;
+    public GameStates currentState;
     public float timer;
+    public bool timerPaused = false;
     private int waveNum;
 
     private void Start()
@@ -91,18 +103,37 @@ public class GameManager : MonoBehaviour
     private void StartWave()
     {
         currentState = GameStates.Wave;
+        playerSelector.enabled = false;
         waveNum++;
         FadeText("Wave " + waveNum);
 
         timerUI.enabled = false;
         timerTitleUI.enabled = false;
-        flockSpawner.SpawnEnemies(3);
-        spawner.SpawnEnemies(4);
+
+        if(waveNum == 1)
+        {
+            flockSpawner.SpawnEnemies(flockingEnemyNumStart);
+            flockingEnemyNum = flockingEnemyNumStart;
+        }
+        else if(waveNum == 2)
+        {
+            spawner.SpawnEnemies(goapEnemyNumStart);
+            goapEnemyNum = goapEnemyNumStart;
+        }
+        else
+        {
+            flockingEnemyNum = Mathf.FloorToInt(flockingEnemyNum * flockingEnemyMultiplier);
+            goapEnemyNum = Mathf.FloorToInt(goapEnemyNum * goapEnemyMultiplier);
+
+            flockSpawner.SpawnEnemies(flockingEnemyNum);
+            spawner.SpawnEnemies(goapEnemyNum);
+        }
     }
 
     private void EndWave()
     {
         currentState = GameStates.Waiting;
+        playerSelector.enabled = true;
         FadeText("Wave Completed");
         StartCoroutine(WaitToChangeState());
         
@@ -126,15 +157,23 @@ public class GameManager : MonoBehaviour
 
     private void UpdatePrepare()
     {
-        timer -= Time.deltaTime;
-        string formatText = Mathf.Floor(timer / 60).ToString("00") + ":" + Mathf.FloorToInt(timer % 60).ToString("00");
-        timerUI.text = formatText;
-
-        if(timer <= 0)
+        if (!timerPaused)
         {
-            currentState = GameStates.Wave;
-            StartWave();
+            timer -= Time.deltaTime;
+            string formatText = Mathf.Floor(timer / 60).ToString("00") + ":" + Mathf.FloorToInt(timer % 60).ToString("00");
+            timerUI.text = formatText;
+
+            if (timer <= 0)
+            {
+                currentState = GameStates.Wave;
+                StartWave();
+            }
         }
+        else
+        {
+            timerUI.text = "Paused";
+        }
+       
     }
 
     public void GameOver()
@@ -146,7 +185,6 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         playerCam.enabled = false;
-        //playerObj.GetComponent<>();
     }
 
     private void FadeText(string text)
@@ -169,5 +207,16 @@ public class GameManager : MonoBehaviour
     public int GetTotalMoney()
     {
         return inventory.GetMoney();
+    }
+
+    public void ResetHealth()
+    {
+        playerBase.health = playerBase.maxhealth;
+        healthSliderUI.value = playerBase.health;
+    }
+
+    public bool CheckIfHealthMax()
+    {
+        return playerBase.health == playerBase.maxhealth;
     }
 }

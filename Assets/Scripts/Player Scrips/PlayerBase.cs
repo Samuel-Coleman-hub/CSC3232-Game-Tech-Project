@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
-    [SerializeField] float maxhealth;
+    [SerializeField] public float maxhealth;
     [SerializeField] GameManager gameManager;
     public float health;
 
