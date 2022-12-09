@@ -12,7 +12,7 @@ public class FourInARowSlot : MonoBehaviour
     public void OnChildLookAt()
     {
         //Enabled selected effect
-        Debug.Log("LOOKING AT " + gameObject.name);
+        //Debug.Log("LOOKING AT " + gameObject.name);
         dropText.enabled = true;
     }
 
@@ -23,7 +23,7 @@ public class FourInARowSlot : MonoBehaviour
 
     public void InteractWith()
     {
-        Debug.Log("Interact AT "+ gameObject.name);
+        //Debug.Log("Interact AT "+ gameObject.name);
         fourInARowGame.PlacePuck(position);
     }
 }
