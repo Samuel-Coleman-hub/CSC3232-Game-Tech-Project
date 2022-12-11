@@ -53,13 +53,21 @@ public class GameManager : MonoBehaviour
     public bool timerPaused = false;
     private int waveNum;
 
+    private void Awake()
+    {
+        Settings settings = GameObject.FindGameObjectWithTag("Settings").GetComponent<Settings>();
+        Camera.main.fieldOfView = settings.GetFOV();
+        playerCam.SetSensitvity(settings.GetMouseSensitivity());
+        Physics.gravity = new Vector3(0, -4.5F, 0);
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         Debug.Log(Environment.UserName);
-        Physics.gravity = new Vector3(0, -4.5F, 0);
+        
 
         PrepareForNextWave();
     }
@@ -69,7 +77,7 @@ public class GameManager : MonoBehaviour
         switch (currentState)
         {
             case GameStates.Wave:
-                if(flockSpawner.IsAlive() && spawner.enemiesAlive == 0)
+                if (flockSpawner.IsAlive() && spawner.enemiesAlive == 0)
                 {
                     EndWave();
                 }
@@ -83,6 +91,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        SlowMoHandler();
+    }
+
+    private void SlowMoHandler()
+    {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Time.timeScale = 0.2f;

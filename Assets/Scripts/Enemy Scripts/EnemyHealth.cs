@@ -29,20 +29,28 @@ public class EnemyHealth : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        string tag = collision.gameObject.tag;
-        switch (tag)
+        if (!hasChildHitBox)
         {
-            case "Bullet":
-                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-                health -= bullet.bulletDamage;
-                break;
+            string tag = collision.gameObject.tag;
+            switch (tag)
+            {
+                case "Bullet":
+                    Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                    TakeDamage(bullet.bulletDamage);
+                    break;
+            }
         }
+    }
 
-        if(health <= 0)
+    private void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
         {
             ParticleSystem particles = Instantiate(deathParticles, transform.position, transform.rotation);
             particles.Play();
-            if(spawner != null)
+            if (spawner != null)
             {
                 spawner.EnemyDied();
             }
@@ -50,9 +58,23 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(health <= 50 && visuallyDamagable)
+        if (health <= 50 && visuallyDamagable)
         {
             mesh.material = damagedMaterial;
+        }
+
+    }
+
+    public void OnCollisionHitBoxEnter(EnemyHitBox.HitBoxArea hitArea, float damage)
+    {
+        switch (hitArea)
+        {
+            case EnemyHitBox.HitBoxArea.Head:
+                TakeDamage(damage * 2);
+                break;
+            case EnemyHitBox.HitBoxArea.Body:
+                TakeDamage(damage);
+                break;
         }
     }
 

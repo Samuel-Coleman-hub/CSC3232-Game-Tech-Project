@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour
             countUI++;
         }
 
-        moneyTextUI.text = "Mons: " + money.ToString();
+        moneyTextUI.text = "Money: " + money.ToString();
         UpdateHand();
     }
 

@@ -7,14 +7,9 @@ public class ManageScenes : MonoBehaviour
     
     // Start is called before the first frame update
     
-    public void StartQuickGame()
+    public void StartGame()
     {
         SceneManager.LoadScene(sceneName: "GameScene");
-    }
-
-    public void StartEndlessGame()
-    {
-
     }
 
     public void ExitToMenu()

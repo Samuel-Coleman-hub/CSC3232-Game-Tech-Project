@@ -42,7 +42,6 @@ public class AgentMovement : MonoBehaviour
             {
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
-                    Debug.Log("Position Reached");
                     destinationReached = true;
                     agent.isStopped = true;
                 }

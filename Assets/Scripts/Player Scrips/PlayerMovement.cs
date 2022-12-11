@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     private float movementSpeed;
     public float runSpeed;
+    public float walkSpeed;
 
     [SerializeField] private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public MovementState movementState;
     public enum MovementState
     {
+        walk,
         run,
         air,
     }
@@ -89,11 +91,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        
-        if (onGround)
+        if (onGround && Input.GetKey(runKey))
         {
             movementState = MovementState.run;
             desiredMoveSpeed = runSpeed;
+        }
+        else if (onGround)
+        {
+            movementState = MovementState.walk;
+            desiredMoveSpeed = walkSpeed;
         }
         else
         {

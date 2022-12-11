@@ -24,7 +24,6 @@ public class PlayerBase : MonoBehaviour
         if(health < 0f)
         {
             //End Game
-            Debug.Log("Game Over");
             gameManager.GameOver();
         }
     }

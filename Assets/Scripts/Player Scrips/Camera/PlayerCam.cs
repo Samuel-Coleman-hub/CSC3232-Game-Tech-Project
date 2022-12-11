@@ -35,4 +35,10 @@ public class PlayerCam : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 
     }
+
+    public void SetSensitvity(float value)
+    {
+        xSensitivity = value;
+        ySensitivity = value;
+    }
 }

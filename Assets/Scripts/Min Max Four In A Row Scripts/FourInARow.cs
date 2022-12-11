@@ -138,7 +138,6 @@ public class FourInARow : MonoBehaviour
             if((int)potentialMoves[key] == maxValue)
             {
                 bestMoves.Add(key);
-                Debug.Log("best move " + key);
             }
         }
 
