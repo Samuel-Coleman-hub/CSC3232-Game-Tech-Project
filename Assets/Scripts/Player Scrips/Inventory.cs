@@ -65,14 +65,14 @@ public class Inventory : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             menuLocation++;
-            menuLocation = (menuLocation > entries.Count ? 0 : menuLocation);
+            menuLocation = (menuLocation > entries.Count - 1 ? 0 : menuLocation);
             SwitchImageColour(1);
             UpdateHand();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             menuLocation--;
-            menuLocation = (menuLocation < 0 ? entries.Count : menuLocation);
+            menuLocation = (menuLocation < 0 ? entries.Count - 1 : menuLocation);
             SwitchImageColour(0);
             UpdateHand();
         }
@@ -133,9 +133,9 @@ public class Inventory : MonoBehaviour
 
         if (imageReplacmentCount < 0)
         {
-            imageReplacmentCount = entries.Count;
+            imageReplacmentCount = entries.Count - 1;
         }
-        else if (imageReplacmentCount > entries.Count)
+        else if (imageReplacmentCount > entries.Count - 1)
         {
             imageReplacmentCount = 0;
         }
@@ -186,7 +186,7 @@ public class Inventory : MonoBehaviour
             moneyDescTextUI.color = positiveMoneyColour;
         }
         moneyDescAnimator.SetTrigger("Fade");
-        moneyTextUI.text = "Mons: " + money;
+        moneyTextUI.text = "Money: " + money;
     }
 
     public int GetMoney()

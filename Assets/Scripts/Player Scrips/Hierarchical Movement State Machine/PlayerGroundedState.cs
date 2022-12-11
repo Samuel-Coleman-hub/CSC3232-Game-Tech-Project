@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerBaseState
+public class PlayerGroundedState : PlayerBaseState
 {
-    public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
+        isRootState = true;
         InitializeSubState();
     }
 
     public override void EnterState()
     {
         base.EnterState();
-        Jump();
     }
     public override void UpdateState()
     {
@@ -26,27 +26,21 @@ public class PlayerJumpState : PlayerBaseState
     public override void InitializeSubState()
     {
         base.InitializeSubState();
-        if (!_ctx.IsMovementPressed)
+        if (!ctx.IsMovementPressed)
         {
-            SetSubState(_factory.Idle());
+            SetSubState(factory.Idle());
         }
         else
         {
-            SetSubState(_factory.Walk());
+            SetSubState(factory.Walk());
         }
     }
     public override void CheckSwitchState()
     {
         base.CheckSwitchState();
-        if (_ctx.OnGround)
+        if (ctx.IsJumpPressed)
         {
-            SwitchStates(_factory.Grounded());
+            SwitchStates(factory.Jump());
         }
-    }
-
-    private void Jump()
-    {
-        _ctx.Rb.velocity = new Vector3(_ctx.Rb.velocity.x, 0f, _ctx.Rb.velocity.z);
-        _ctx.Rb.AddForce(_ctx.transform.up * _ctx.JumpForce, ForceMode.Impulse);
     }
 }

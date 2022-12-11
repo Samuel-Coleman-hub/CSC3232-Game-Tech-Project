@@ -7,13 +7,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     private float movementSpeed;
     public float runSpeed;
-    public float slideSpeed;
 
     [SerializeField] private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
 
     public float speedIncreaseMultiplier;
-    public float slopeIncreaseMultiplier;
 
     public float groundDrag;
     public float jumpForce;
@@ -22,10 +20,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     private bool readyToJump = true;
 
-    public SlidingMovement slidingMovement;
 
     [Header("Keybinds")]
-    public KeyCode runKey = KeyCode.LeftShift;
+    public KeyCode runKey = KeyCode.R;
     public KeyCode jumpKey = KeyCode.Space;
     
     [Header("Ground Check")]
@@ -33,37 +30,24 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     private bool onGround;
 
-    [Header("Slope Handline")]
-    public float maxSlopeAngle;
-    private RaycastHit slopeHit;
-    private bool exitSlope;
-
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
 
     public Rigidbody rb;
-    public float velocityForCameraShake;
-    private bool cameraShaking;
 
     public MovementState movementState;
     public enum MovementState
     {
         run,
         air,
-        sliding
     }
-
-    public bool sliding = false;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        
-        //StartCoroutine(Camera.main.GetComponent<ShakeCamera>().CameraShake(0.1f, 1f));
     }
 
     private void Update()
@@ -105,20 +89,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        if (sliding)
-        {
-            movementState = MovementState.sliding;
-
-            if (OnSlope() && rb.velocity.y < 0.1f)
-            {
-                desiredMoveSpeed = slideSpeed;
-            }
-            else
-            {
-                desiredMoveSpeed = runSpeed;
-            }
-        }
-        else if (onGround)
+        
+        if (onGround)
         {
             movementState = MovementState.run;
             desiredMoveSpeed = runSpeed;
@@ -150,18 +122,8 @@ public class PlayerMovement : MonoBehaviour
         while(time < difference)
         {
             movementSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time/difference);
-
-            if (OnSlope())
-            {
-                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
-
-                time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease;
-            }
-            else
-            {
-                time += Time.deltaTime * speedIncreaseMultiplier;
-            }
+            time += Time.deltaTime * speedIncreaseMultiplier;
+            
 
             yield return null;
         }
@@ -173,19 +135,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        if (OnSlope() && !exitSlope)
-        {
-            sliding = true;
-            slidingMovement.StartSliding();
-            
-            rb.AddForce(20f * movementSpeed * GetSlopeMoveDirection(moveDirection), ForceMode.Force);
-
-            if(rb.velocity.y > 0)
-            {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-            }
-        }
-        else if (onGround)
+        if (onGround)
         {
             rb.AddForce(10f * movementSpeed * moveDirection.normalized, ForceMode.Force);
         }
@@ -193,34 +143,20 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(10f * airMultiplier * movementSpeed * moveDirection.normalized, ForceMode.Force);
         }
-
-        rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
     {
-        if (OnSlope() && !exitSlope)
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        if (flatVel.magnitude > movementSpeed)
         {
-            if(rb.velocity.magnitude > movementSpeed)
-            {
-                rb.velocity = rb.velocity.normalized * movementSpeed;
-            }
-        }
-        else
-        {
-           Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-           if (flatVel.magnitude > movementSpeed)
-           {
-                Vector3 limitedVel = flatVel.normalized * movementSpeed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-           }
+             Vector3 limitedVel = flatVel.normalized * movementSpeed;
+             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
 
     private void Jump()
     {
-        exitSlope = true;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -228,22 +164,6 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-        exitSlope = false;
-    }
-
-    public bool OnSlope()
-    {
-        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
-        {
-            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
-        }
-        return false;
-    }
-
-    public Vector3 GetSlopeMoveDirection(Vector3 dir)
-    {
-        return Vector3.ProjectOnPlane(dir, slopeHit.normal).normalized;
     }
 
 }

@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundedState : PlayerBaseState
+public class PlayerJumpState : PlayerBaseState
 {
-    public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
+        isRootState = true;
         InitializeSubState();
     }
 
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("HELL FOEM GROUDED");
+        Jump();
     }
     public override void UpdateState()
     {
@@ -26,21 +27,27 @@ public class PlayerGroundedState : PlayerBaseState
     public override void InitializeSubState()
     {
         base.InitializeSubState();
-        if (!_ctx.IsMovementPressed)
+        if (!ctx.IsMovementPressed)
         {
-            SetSubState(_factory.Idle());
+            SetSubState(factory.Idle());
         }
         else
         {
-            SetSubState(_factory.Walk());
+            SetSubState(factory.Walk());
         }
     }
     public override void CheckSwitchState()
     {
         base.CheckSwitchState();
-        if (_ctx.IsJumpPressed)
+        if (ctx.OnGround)
         {
-            SwitchStates(_factory.Jump());
+            SwitchStates(factory.Grounded());
         }
+    }
+
+    private void Jump()
+    {
+        ctx.Rb.velocity = new Vector3(ctx.Rb.velocity.x, 0f, ctx.Rb.velocity.z);
+        ctx.Rb.AddForce(ctx.transform.up * ctx.JumpForce, ForceMode.Impulse);
     }
 }

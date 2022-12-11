@@ -7305,7 +7305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mons: '
+  m_text: 'Money:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aac7eb24479d6314ea3d283d486faf6f, type: 2}
   m_sharedMaterial: {fileID: 57001944742437317, guid: aac7eb24479d6314ea3d283d486faf6f, type: 2}
@@ -13019,9 +13019,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flockingEnemyNumStart: 6
   goapEnemyNumStart: 3
-  flockingEnemyMultiplier: 1.8
-  goapEnemyMultiplier: 1.4
-  waitTime: 8
+  flockingEnemyMultiplier: 1.5
+  goapEnemyMultiplier: 1.5
+  waitTime: 30
   healthSliderUI: {fileID: 1989180746}
   gameOverUI: {fileID: 1342431396}
   gameOverWaveCountTextUI: {fileID: 425540241}
@@ -13837,7 +13837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1316358889}
-  itemPrice: 10
+  itemPrice: 500
   tokenPrefab: {fileID: 0}
   spawnPoint: {fileID: 796178857}
   spawnForce: 5
@@ -14945,7 +14945,6 @@ GameObject:
   - component: {fileID: 1567463048}
   - component: {fileID: 1567463047}
   - component: {fileID: 1567463049}
-  - component: {fileID: 1567463050}
   - component: {fileID: 1567463051}
   - component: {fileID: 1567463053}
   - component: {fileID: 1567463056}
@@ -15000,51 +14999,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567463046}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f9baa9f3690c4649a6c45ce03bd4e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 10
-  slideSpeed: 30
   desiredMoveSpeed: 0
   speedIncreaseMultiplier: 5
-  slopeIncreaseMultiplier: 1.5
   groundDrag: 4
   jumpForce: 7
   jumpCooldown: 0.25
   airMultiplier: 0.2
   orientation: {fileID: 1402611340}
-  slidingMovement: {fileID: 1567463050}
   runKey: 114
   jumpKey: 32
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  maxSlopeAngle: 60
   rb: {fileID: 0}
-  velocityForCameraShake: 14
   movementState: 0
-  sliding: 0
---- !u!114 &1567463050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567463046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45c37e3d9be6434aa2303b010833f8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 1402611340}
-  playerObj: {fileID: 1978830036}
-  maxSlideTime: 0.75
-  slideForce: 200
-  slideYScale: 0.5
-  slideKey: 306
 --- !u!114 &1567463051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15120,18 +15095,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567463046}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b18ae550ff92aa44d842219bf9702496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 0}
-  _playerHeight: 2
-  _jumpForce: 7
-  _whatIsGround:
+  rb: {fileID: 0}
+  playerHeight: 2
+  orientation: {fileID: 1402611340}
+  movementSpeed: 2
+  jumpForce: 7
+  whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  _jumpKey: 32
+  jumpKey: 32
 --- !u!114 &1567463058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18454,6 +18431,10 @@ PrefabInstance:
     - target: {fileID: 7362203659908312835, guid: 8a6d1e0b7f380dd4f8dc5f9ba2dc5faf, type: 3}
       propertyPath: m_Name
       value: Speed Boost (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7362203659908312835, guid: 8a6d1e0b7f380dd4f8dc5f9ba2dc5faf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7362203659908312838, guid: 8a6d1e0b7f380dd4f8dc5f9ba2dc5faf, type: 3}
       propertyPath: playerMovement
@@ -23869,6 +23850,10 @@ PrefabInstance:
     - target: {fileID: 7362203659908312835, guid: 8a6d1e0b7f380dd4f8dc5f9ba2dc5faf, type: 3}
       propertyPath: m_Name
       value: Speed Boost
+      objectReference: {fileID: 0}
+    - target: {fileID: 7362203659908312835, guid: 8a6d1e0b7f380dd4f8dc5f9ba2dc5faf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7362203659908312838, guid: 8a6d1e0b7f380dd4f8dc5f9ba2dc5faf, type: 3}
       propertyPath: playerMovement

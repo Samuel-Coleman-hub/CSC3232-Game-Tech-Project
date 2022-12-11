@@ -19,6 +19,8 @@ public class EnemyHealth : MonoBehaviour
 
     private MeshRenderer mesh;
 
+    public bool hasChildHitBox;
+
     private void Start()
     {
         health = maxHealth;

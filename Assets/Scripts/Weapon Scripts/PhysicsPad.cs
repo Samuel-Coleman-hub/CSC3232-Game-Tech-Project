@@ -38,34 +38,40 @@ public class PhysicsPad : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        rb = collision.gameObject.GetComponent<Rigidbody>();
-        switch (type)
+        if(collision.gameObject.tag == "Player")
         {
-            case PadType.Bounce :
-                //playerMovement.jumpForce = playerMovement.jumpForce * 4;
-                rb.AddForce(collision.transform.up * bounceForce, ForceMode.Impulse);
-                break;
-            case PadType.Speed :
-                playerMovement.runSpeed *=  speedIncrease;
-                break;
-            case PadType.Slow :
-                rb.mass = massIncrease;
-                break;
+            rb = collision.gameObject.GetComponent<Rigidbody>();
+            switch (type)
+            {
+                case PadType.Bounce:
+                    //playerMovement.jumpForce = playerMovement.jumpForce * 4;
+                    rb.AddForce(collision.transform.up * bounceForce, ForceMode.Impulse);
+                    break;
+                case PadType.Speed:
+                    playerMovement.runSpeed *= speedIncrease;
+                    break;
+                case PadType.Slow:
+                    rb.mass = massIncrease;
+                    break;
+            }
         }
+        
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        
-        switch (type)
+        if(collision.gameObject.tag == "Player")
         {
-            case PadType.Slow:
-                rb.mass = initalMass;
-                break;
-            case PadType.Speed:
-                playerMovement.runSpeed = initalPlayerSpeed;
-                break;
+            switch (type)
+            {
+                case PadType.Slow:
+                    rb.mass = initalMass;
+                    break;
+                case PadType.Speed:
+                    playerMovement.runSpeed = initalPlayerSpeed;
+                    break;
 
+            }
         }
     }
 

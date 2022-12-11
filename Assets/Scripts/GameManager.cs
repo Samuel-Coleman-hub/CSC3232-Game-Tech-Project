@@ -122,9 +122,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            flockingEnemyNum = Mathf.FloorToInt(flockingEnemyNum * flockingEnemyMultiplier);
-            goapEnemyNum = Mathf.FloorToInt(goapEnemyNum * goapEnemyMultiplier);
-
+            flockingEnemyNum = Random.Range(Mathf.FloorToInt(flockingEnemyNum * flockingEnemyMultiplier), Mathf.CeilToInt(flockingEnemyNum * flockingEnemyMultiplier));
+            goapEnemyNum = Random.Range(Mathf.FloorToInt(goapEnemyNum * goapEnemyMultiplier), Mathf.CeilToInt(goapEnemyNum * goapEnemyMultiplier));
+            Debug.Log("FLOCK ENEMIES " +flockingEnemyNum);
+            Debug.Log("GOAP ENEMIES" + goapEnemyNum);
             flockSpawner.SpawnEnemies(flockingEnemyNum);
             spawner.SpawnEnemies(goapEnemyNum);
         }

@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class PlayerStateFactory
 {
-    PlayerStateMachine _context;
+    PlayerStateMachine context;
 
     public PlayerStateFactory(PlayerStateMachine currentContext)
     {
-        _context = currentContext;
+        context = currentContext;
     }
 
     public PlayerBaseState Idle() 
     {
-        return new PlayerIdleState(_context, this);
+        return new PlayerIdleState(context, this);
     }
     public PlayerBaseState Walk() 
     {
-    return new PlayerWalkState(_context, this);
+    return new PlayerWalkState(context, this);
     }
     public PlayerBaseState Jump() 
     {
-        return new PlayerJumpState(_context, this);
+        return new PlayerJumpState(context, this);
     }
     public PlayerBaseState Grounded() 
     {
-        return new PlayerGroundedState(_context, this);
+        return new PlayerGroundedState(context, this);
     }
 }
