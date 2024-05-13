@@ -1,4 +1,4 @@
-# Space Defender (CSC3232 University Assignment
+# Space Defender (CSC3232 University Assignment)
 
 This is a game I created for my Game Technologies & Simulations University Module.
 
